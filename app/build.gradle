@@ -10,6 +10,10 @@ android {
     compileSdkVersion 29
     buildToolsVersion "30.0.1"
 
+    buildFeatures {
+        dataBinding true
+    }
+
     defaultConfig {
         applicationId "com.hodinkee.hodinnews"
         minSdkVersion 16
