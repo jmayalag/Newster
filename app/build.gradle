@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
 }
 
@@ -57,6 +58,10 @@ dependencies {
     implementation "com.squareup.moshi:moshi-adapters:${versions.moshi}"
     implementation "com.squareup.retrofit2:converter-moshi:${versions.retrofit}"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:${versions.moshi}"
+
+    // Dagger
+    implementation "com.google.dagger:hilt-android:${versions.hilt}"
+    kapt "com.google.dagger:hilt-android-compiler:${versions.hilt}"
 
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

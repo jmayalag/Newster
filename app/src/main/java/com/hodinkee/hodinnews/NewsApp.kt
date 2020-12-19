@@ -6,6 +6,7 @@ import com.hodinkee.newsapi.NewsService
 import com.hodinkee.newsapi.provideMoshiConverter
 import com.hodinkee.newsapi.provideOkHttpClientBuilder
 import com.hodinkee.newsapi.provideRetrofitBuilder
+import dagger.hilt.android.HiltAndroidApp
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.create
 
@@ -13,6 +14,7 @@ import retrofit2.create
 fun Context.app() = this.applicationContext as NewsApp
 fun Application.news() = this as NewsApp
 
+@HiltAndroidApp
 class NewsApp : Application() {
     private val retrofit by lazy {
         val moshi = provideMoshiConverter()
