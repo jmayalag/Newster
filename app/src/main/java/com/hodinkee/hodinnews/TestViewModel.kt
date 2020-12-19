@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hodinkee.newsapi.NewsService
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class TestViewModel @ViewModelInject constructor(
     private val newsService: NewsService
@@ -13,9 +14,9 @@ class TestViewModel @ViewModelInject constructor(
         viewModelScope.launch {
             try {
                 val response = newsService.fetchNews(20, 1)
-                println(response)
+                Timber.d("News total: %d, size: %d", response.totalResults, response.articles.size)
             } catch (e: Exception) {
-                println(e)
+                Timber.e(e, "Failed to fetch news")
             }
         }
     }

@@ -18,6 +18,10 @@ buildscript {
         "hamcrest"     : "2.2",
     ]
 
+    ext.deps = [
+        "timber": "com.jakewharton.timber:timber:4.7.1"
+    ]
+
     repositories {
         google()
         jcenter()
