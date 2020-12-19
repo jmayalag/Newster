@@ -1,2 +1,3 @@
+include ':newsapi'
 include ':app'
 rootProject.name = "HodinNews"
