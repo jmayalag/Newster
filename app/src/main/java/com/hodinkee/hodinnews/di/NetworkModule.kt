@@ -15,41 +15,40 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import javax.inject.Singleton
 
-@Module
-object NetworkModule {
-    @Provides
-    @Singleton
-    fun provideOkHttpCache(@ApplicationContext applicationContext: Context): Cache {
-        val cacheSize = 10L * 1024L * 1024L
-        return Cache(applicationContext.cacheDir, cacheSize)
-    }
-
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(
-        cache: Cache,
-        loggingInterceptor: HttpLoggingInterceptor?
-    ): OkHttpClient {
-        return provideOkHttpClientBuilder()
-            .cache(cache)
-            .apply { if (loggingInterceptor != null) addInterceptor(loggingInterceptor) }
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideMoshi(): MoshiConverterFactory {
-        return provideMoshiConverter()
-    }
-
-    @Provides
-    fun provideRetrofitBuilder(moshiConverter: MoshiConverterFactory, okHttpClient: OkHttpClient) =
-        com.hodinkee.newsapi.provideRetrofitBuilder(moshiConverter, okHttpClient)
-
-    @Provides
-    fun provideRetrofit(builder: Retrofit.Builder) = builder.build()
-
-    @Provides
-    @Singleton
-    fun provideNewsService(retrofit: Retrofit): NewsService = retrofit.create()
-}
+//object NetworkModule {
+//    @Provides
+//    @Singleton
+//    fun provideOkHttpCache(@ApplicationContext applicationContext: Context): Cache {
+//        val cacheSize = 10L * 1024L * 1024L
+//        return Cache(applicationContext.cacheDir, cacheSize)
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun provideOkHttpClient(
+//        cache: Cache,
+//        loggingInterceptor: HttpLoggingInterceptor?
+//    ): OkHttpClient {
+//        return provideOkHttpClientBuilder()
+//            .cache(cache)
+//            .apply { if (loggingInterceptor != null) addInterceptor(loggingInterceptor) }
+//            .build()
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun provideMoshi(): MoshiConverterFactory {
+//        return provideMoshiConverter()
+//    }
+//
+//    @Provides
+//    fun provideRetrofitBuilder(moshiConverter: MoshiConverterFactory, okHttpClient: OkHttpClient) =
+//        com.hodinkee.newsapi.provideRetrofitBuilder(moshiConverter, okHttpClient)
+//
+//    @Provides
+//    fun provideRetrofit(builder: Retrofit.Builder) = builder.build()
+//
+//    @Provides
+//    @Singleton
+//    fun provideNewsService(retrofit: Retrofit): NewsService = retrofit.create()
+//}

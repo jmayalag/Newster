@@ -1,12 +1,12 @@
 package com.hodinkee.hodinnews
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hodinkee.newsapi.NewsService
 import kotlinx.coroutines.launch
 
-class TestViewModel : ViewModel() {
-
+class TestViewModel @ViewModelInject constructor() : ViewModel() {
     fun fetchNews(service: NewsService) {
         viewModelScope.launch {
             try {
