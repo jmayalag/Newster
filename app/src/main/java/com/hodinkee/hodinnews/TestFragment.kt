@@ -22,9 +22,6 @@ class TestFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        context?.app()?.newsService?.let {
-            viewModel.fetchNews(it)
-        }
+        viewModel.fetchNews()
     }
-
 }
