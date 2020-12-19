@@ -10,8 +10,22 @@ java {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"
     // Networking
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-moshi:${versions.retrofit}"
+
+
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${versions.ok_http}"
+    implementation "com.squareup.moshi:moshi-adapters:${versions.moshi}"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:${versions.moshi}"
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
+
+    testImplementation "org.hamcrest:hamcrest:${versions.hamcrest}"
+    testImplementation "org.hamcrest:hamcrest-library:${versions.hamcrest}"
+    testImplementation "junit:junit:${versions.junit}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}"
+    testImplementation "com.squareup.retrofit2:converter-moshi:${versions.retrofit}"
 }
