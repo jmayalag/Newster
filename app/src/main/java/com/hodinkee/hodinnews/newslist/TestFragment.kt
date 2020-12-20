@@ -1,4 +1,4 @@
-package com.hodinkee.hodinnews
+package com.hodinkee.hodinnews.newslist
 
 import android.os.Bundle
 import android.view.LayoutInflater

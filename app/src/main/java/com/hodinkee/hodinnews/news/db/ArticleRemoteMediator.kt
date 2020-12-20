@@ -1,4 +1,4 @@
-package com.hodinkee.hodinnews.news
+package com.hodinkee.hodinnews.news.db
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType

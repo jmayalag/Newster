@@ -1,7 +1,9 @@
 package com.hodinkee.hodinnews.news
 
-class ArticlePagedRepository constructor(
+import androidx.paging.PagingData
+import com.hodinkee.hodinnews.news.data.ArticleDto
+import kotlinx.coroutines.flow.Flow
 
-) {
-
+interface ArticlePagedRepository {
+    fun fetchNews(pageSize: Int): Flow<PagingData<ArticleDto>>
 }
