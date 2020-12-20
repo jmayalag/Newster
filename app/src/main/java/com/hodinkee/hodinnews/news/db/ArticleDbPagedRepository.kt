@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import com.hodinkee.hodinnews.AppDatabase
 import com.hodinkee.hodinnews.news.ArticlePagedRepository
 import com.hodinkee.hodinnews.news.data.ArticleDto
+import com.hodinkee.hodinnews.news.data.Category
 import com.hodinkee.newsapi.NewsService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -20,6 +21,6 @@ class ArticleDbPagedRepository @Inject constructor(
         Pager(
             PagingConfig(pageSize = 20, enablePlaceholders = false),
             remoteMediator = ArticleRemoteMediator(db, newsService),
-            pagingSourceFactory = { db.articleDao().pagingSource() }
+            pagingSourceFactory = { db.articleDao().pagingSource(Category.REMOTE) }
         ).flow
 }

@@ -9,6 +9,12 @@ interface ArticleDao {
     @Query("SELECT * FROM articles")
     suspend fun getAll(): List<ArticleDto>
 
+    @Query("SELECT * FROM articles WHERE category = :category")
+    suspend fun findByCategory(category: Category): List<ArticleDto>
+
+    @Query("SELECT * FROM articles where category = :category ORDER BY publishedAt DESC")
+    fun pagingSource(category: Category): PagingSource<Int, ArticleDto>
+
     @Query("SELECT * FROM articles WHERE id = :id LIMIT 1")
     suspend fun findById(id: String): ArticleDto
 
@@ -21,9 +27,6 @@ interface ArticleDao {
     @Delete
     suspend fun delete(vararg articles: ArticleDto)
 
-    @Query("SELECT * FROM articles ORDER BY publishedAt DESC")
-    fun pagingSource(): PagingSource<Int, ArticleDto>
-
-    @Query("DELETE FROM articles")
-    suspend fun clearAll()
+    @Query("DELETE FROM articles WHERE category = :category")
+    suspend fun clearAll(category: Category)
 }

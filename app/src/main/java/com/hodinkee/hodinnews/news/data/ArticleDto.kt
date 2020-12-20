@@ -14,5 +14,6 @@ data class ArticleDto(
  val description: String?,
  val urlToImage: String?,
  val content: String,
- val publishedAt: Date
+ val publishedAt: Date,
+ val category: Category
 )

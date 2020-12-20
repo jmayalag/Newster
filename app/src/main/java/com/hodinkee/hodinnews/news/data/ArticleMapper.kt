@@ -12,7 +12,8 @@ fun ArticleJson.toDto() = ArticleDto(
     description = description,
     urlToImage = urlToImage,
     content = content ?: "",
-    publishedAt = publishedAt
+    publishedAt = publishedAt,
+    category = Category.REMOTE
 )
 
 fun ArticleDto.toJson() = ArticleJson(
