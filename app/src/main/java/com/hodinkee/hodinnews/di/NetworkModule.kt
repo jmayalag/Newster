@@ -1,6 +1,8 @@
 package com.hodinkee.hodinnews.di
 
 import android.content.Context
+import coil.ImageLoader
+import coil.util.CoilUtils
 import com.hodinkee.hodinnews.BuildConfig
 import com.hodinkee.newsapi.NewsService
 import com.hodinkee.newsapi.provideMoshiConverter
@@ -25,8 +27,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpCache(@ApplicationContext applicationContext: Context): Cache {
-        val cacheSize = 10L * 1024L * 1024L
-        return Cache(applicationContext.cacheDir, cacheSize)
+        return CoilUtils.createDefaultCache(applicationContext)
     }
 
     @Provides
@@ -63,4 +64,13 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideNewsService(retrofit: Retrofit): NewsService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideImageLoader(
+        okHttpClient: OkHttpClient,
+        @ApplicationContext context: Context
+    ): ImageLoader {
+        return ImageLoader.Builder(context).okHttpClient(okHttpClient).build()
+    }
 }
