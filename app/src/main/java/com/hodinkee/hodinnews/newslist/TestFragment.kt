@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
@@ -14,12 +15,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hodinkee.hodinnews.databinding.TestFragmentBinding
 import com.hodinkee.hodinnews.news.ArticlesAdapter
 import com.hodinkee.hodinnews.news.ArticlesLoadStateAdapter
+import com.hodinkee.hodinnews.toView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
-import timber.log.Timber
 
 @ExperimentalPagingApi
 @AndroidEntryPoint
@@ -40,7 +41,10 @@ class TestFragment : Fragment() {
         }
 
         pagingAdapter = ArticlesAdapter(ArticlesAdapter.ArticleComparator) {
-            Timber.d("Clicked %s", it.url)
+            val article = it.toView()
+            val directions =
+                TestFragmentDirections.actionTestFragmentToArticleDetailFragment(article)
+            findNavController().navigate(directions)
         }
         recyclerView = binding.articlesList
         swipeRefresh = binding.swipeRefresh

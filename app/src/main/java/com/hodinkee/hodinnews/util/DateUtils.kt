@@ -1,4 +1,4 @@
-package com.hodinkee.hodinnews
+package com.hodinkee.hodinnews.util
 
 import java.text.SimpleDateFormat
 import java.util.*

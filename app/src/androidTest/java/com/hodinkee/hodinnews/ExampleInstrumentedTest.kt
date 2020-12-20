@@ -1,12 +1,12 @@
 package com.hodinkee.hodinnews
 
-import androidx.test.platform.app.InstrumentationRegistry
+import android.os.Parcel
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
+import java.util.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -20,5 +20,20 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.hodinkee.hodinnews", appContext.packageName)
+
+        val article = Article(
+            source = "None",
+            author = "None",
+            title = "Title",
+            url = "url",
+            description = "desc",
+            urlToImage = "",
+            content = "hola mundo",
+            publishedAt = Date()
+        )
+
+        println(article)
+        val parcel = Parcel.obtain()
+        article.writeToParcel(parcel, article.describeContents())
     }
 }
