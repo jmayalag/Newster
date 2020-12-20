@@ -5,15 +5,17 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.hodinkee.hodinnews.DateFormat
 import com.hodinkee.hodinnews.databinding.ArticleItemBinding
 import com.hodinkee.hodinnews.news.data.ArticleDto
+import com.hodinkee.hodinnews.util.DateFormat
 
-class ArticlesAdapter(diffCallback: DiffUtil.ItemCallback<ArticleDto>) :
-    PagingDataAdapter<ArticleDto, ArticlesAdapter.ArticleViewHolder>(diffCallback) {
+class ArticlesAdapter(
+    diffCallback: DiffUtil.ItemCallback<ArticleDto>,
+    private val onClick: (vh: ArticleDto) -> Unit = {}
+) : PagingDataAdapter<ArticleDto, ArticlesAdapter.ArticleViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
-        return ArticleViewHolder.from(parent)
+        return ArticleViewHolder.from(parent, onClick)
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
@@ -22,11 +24,19 @@ class ArticlesAdapter(diffCallback: DiffUtil.ItemCallback<ArticleDto>) :
     }
 
     class ArticleViewHolder private constructor(
-        private val binding: ArticleItemBinding
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
+        private val binding: ArticleItemBinding,
+        private val onClick: (vh: ArticleDto) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+        var item: ArticleDto? = null
+
+        init {
+            binding.root.setOnClickListener {
+                this.item?.let { onClick(it) }
+            }
+        }
 
         fun bind(item: ArticleDto?) {
+            this.item = item
             binding.title.text = item?.title ?: "Loading..."
             binding.source.text =
                 item?.source?.let { if (it.isEmpty()) "Unknown Source" else it }
@@ -37,10 +47,10 @@ class ArticlesAdapter(diffCallback: DiffUtil.ItemCallback<ArticleDto>) :
         }
 
         companion object {
-            fun from(parent: ViewGroup): ArticleViewHolder {
+            fun from(parent: ViewGroup, onClick: (ArticleDto) -> Unit): ArticleViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ArticleItemBinding.inflate(layoutInflater, parent, false)
-                return ArticleViewHolder(binding)
+                return ArticleViewHolder(binding, onClick)
             }
         }
     }

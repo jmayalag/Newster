@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
@@ -82,6 +83,7 @@ dependencies {
 
     // Utils
     implementation "${deps.timber}"
+    implementation "io.coil-kt:coil:1.1.0"
 
     testImplementation "junit:junit:${versions.junit}"
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

@@ -5,14 +5,14 @@
 
         <variable
             name="vm"
-            type="com.hodinkee.hodinnews.newslist.TestViewModel" />
+            type="com.hodinkee.hodinnews.articlelist.ArticleListViewModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".newslist.TestFragment">
+        tools:context=".articlelist.ArticleListFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"

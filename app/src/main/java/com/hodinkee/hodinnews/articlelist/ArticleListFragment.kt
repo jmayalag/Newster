@@ -1,4 +1,4 @@
-package com.hodinkee.hodinnews.newslist
+package com.hodinkee.hodinnews.articlelist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.hodinkee.hodinnews.databinding.TestFragmentBinding
+import com.hodinkee.hodinnews.databinding.ArticleListFragmentBinding
 import com.hodinkee.hodinnews.news.ArticlesAdapter
 import com.hodinkee.hodinnews.news.ArticlesLoadStateAdapter
+import com.hodinkee.hodinnews.toView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -22,8 +24,8 @@ import kotlinx.coroutines.flow.filter
 
 @ExperimentalPagingApi
 @AndroidEntryPoint
-class TestFragment : Fragment() {
-    private val viewModel: TestViewModel by viewModels()
+class ArticleListFragment : Fragment() {
+    private val viewModel: ArticleListViewModel by viewModels()
 
     private lateinit var pagingAdapter: ArticlesAdapter
     private lateinit var recyclerView: RecyclerView
@@ -33,12 +35,19 @@ class TestFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = TestFragmentBinding.inflate(inflater, container, false).apply {
+        val binding = ArticleListFragmentBinding.inflate(inflater, container, false).apply {
             vm = viewModel
-            lifecycleOwner = this@TestFragment.viewLifecycleOwner
+            lifecycleOwner = this@ArticleListFragment.viewLifecycleOwner
         }
 
-        pagingAdapter = ArticlesAdapter(ArticlesAdapter.ArticleComparator)
+        pagingAdapter = ArticlesAdapter(ArticlesAdapter.ArticleComparator) {
+            val article = it.toView()
+            val directions =
+                ArticleListFragmentDirections.actionArticleListFragmentToArticleDetailFragment(
+                    article
+                )
+            findNavController().navigate(directions)
+        }
         recyclerView = binding.articlesList
         swipeRefresh = binding.swipeRefresh
         recyclerView.adapter = pagingAdapter.withLoadStateHeaderAndFooter(
@@ -66,13 +75,13 @@ class TestFragment : Fragment() {
             }
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+        /*viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             pagingAdapter.loadStateFlow
                 // Only emit when REFRESH LoadState for RemoteMediator changes.
                 .distinctUntilChangedBy { it.refresh }
                 // Only react to cases where Remote REFRESH completes i.e., NotLoading.
                 .filter { it.refresh is LoadState.NotLoading }
                 .collect { recyclerView.smoothScrollToPosition(0) }
-        }
+        }*/
     }
 }

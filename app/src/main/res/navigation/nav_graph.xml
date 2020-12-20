@@ -3,11 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/testFragment">
+    app:startDestination="@id/articleListFragment">
 
     <fragment
-        android:id="@+id/testFragment"
-        android:name="com.hodinkee.hodinnews.newslist.TestFragment"
-        android:label="test_fragment"
-        tools:layout="@layout/test_fragment" />
+        android:id="@+id/articleListFragment"
+        android:name="com.hodinkee.hodinnews.articlelist.ArticleListFragment"
+        android:label="article_list_fragment"
+        tools:layout="@layout/article_list_fragment" >
+        <action
+            android:id="@+id/action_articleListFragment_to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="com.hodinkee.hodinnews.articledetail.ArticleDetailFragment"
+        android:label="article_detail_fragment"
+        tools:layout="@layout/article_detail_fragment" >
+        <argument
+            android:name="article"
+            app:argType="com.hodinkee.hodinnews.Article" />
+    </fragment>
 </navigation>
