@@ -10,9 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.hodinkee.hodinnews.databinding.TestFragmentBinding
 import com.hodinkee.hodinnews.news.ArticlesAdapter
+import com.hodinkee.hodinnews.news.ArticlesLoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TestFragment : Fragment() {
@@ -32,7 +32,10 @@ class TestFragment : Fragment() {
 
         pagingAdapter = ArticlesAdapter(ArticlesAdapter.ArticleComparator)
         recyclerView = binding.articlesList
-        recyclerView.adapter = pagingAdapter
+        recyclerView.adapter = pagingAdapter.withLoadStateHeaderAndFooter(
+            header = ArticlesLoadStateAdapter(pagingAdapter),
+            footer = ArticlesLoadStateAdapter(pagingAdapter)
+        )
 
         return binding.root
     }
@@ -40,7 +43,7 @@ class TestFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.articlesFlow.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
