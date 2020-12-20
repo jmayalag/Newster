@@ -61,6 +61,11 @@ dependencies {
     def paging_version = "3.0.0-alpha11"
     implementation "androidx.paging:paging-runtime:$paging_version"
 
+    // Room
+    implementation "androidx.room:room-runtime:${versions.room}"
+    kapt "androidx.room:room-compiler:${versions.room}"
+    implementation "androidx.room:room-ktx:${versions.room}"
+
     // Networking
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.okhttp3:logging-interceptor:${versions.ok_http}"
