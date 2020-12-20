@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.hodinkee.hodinnews.news.RemotePagingSource
+import com.hodinkee.hodinnews.news.ArticlesPagingSource
 import com.hodinkee.newsapi.NewsService
 
 class TestViewModel @ViewModelInject constructor(
@@ -14,6 +14,6 @@ class TestViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     val articlesFlow = Pager(PagingConfig(pageSize = 20)) {
-        RemotePagingSource(newsService)
+        ArticlesPagingSource(newsService)
     }.flow.cachedIn(viewModelScope)
 }
