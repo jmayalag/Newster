@@ -1,23 +1,23 @@
 package com.hodinkee.hodinnews.news
 
 import androidx.paging.PagingSource
-import com.hodinkee.hodinnews.news.data.ArticleRepository
+import com.hodinkee.hodinnews.news.data.ArticleDto
+import com.hodinkee.hodinnews.news.data.toDto
+import com.hodinkee.newsapi.NEWS_START_PAGE
 import com.hodinkee.newsapi.model.ArticleJson
 import retrofit2.HttpException
 
-private const val START_PAGE = 1
-
 class ArticlesPagingSource constructor(
     private val articleRepository: ArticleRepository
-) : PagingSource<Int, ArticleJson>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleJson> {
+) : PagingSource<Int, ArticleDto>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleDto> {
         return try {
-            val pageNumber = params.key ?: START_PAGE
+            val pageNumber = params.key ?: NEWS_START_PAGE
             val response = articleRepository.fetchNews(params.loadSize, pageNumber)
             val nextPage = if (response.articles.isEmpty()) null else pageNumber + 1
 
             LoadResult.Page(
-                data = response.articles,
+                data = response.articles.map { it.toDto() },
                 prevKey = null,
                 nextKey = nextPage
             )

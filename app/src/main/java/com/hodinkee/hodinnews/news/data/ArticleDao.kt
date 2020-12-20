@@ -1,5 +1,6 @@
 package com.hodinkee.hodinnews.news.data
 
+import androidx.paging.PagingSource
 import androidx.room.*
 
 
@@ -19,4 +20,10 @@ interface ArticleDao {
 
     @Delete
     suspend fun delete(vararg articles: ArticleDto)
+
+    @Query("SELECT * FROM articles ORDER BY publishedAt DESC")
+    fun pagingSource(): PagingSource<Int, ArticleDto>
+
+    @Query("DELETE FROM articles")
+    suspend fun clearAll()
 }

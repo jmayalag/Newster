@@ -20,7 +20,8 @@ object DatabaseModule {
             appContext,
             AppDatabase::class.java,
             "hokineews"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

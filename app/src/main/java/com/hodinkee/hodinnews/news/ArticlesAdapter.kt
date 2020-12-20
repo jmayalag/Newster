@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hodinkee.hodinnews.DateFormat
 import com.hodinkee.hodinnews.databinding.ArticleItemBinding
-import com.hodinkee.newsapi.model.ArticleJson
+import com.hodinkee.hodinnews.news.data.ArticleDto
 
-class ArticlesAdapter(diffCallback: DiffUtil.ItemCallback<ArticleJson>) :
-    PagingDataAdapter<ArticleJson, ArticlesAdapter.ArticleViewHolder>(diffCallback) {
+class ArticlesAdapter(diffCallback: DiffUtil.ItemCallback<ArticleDto>) :
+    PagingDataAdapter<ArticleDto, ArticlesAdapter.ArticleViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         return ArticleViewHolder.from(parent)
@@ -26,10 +26,10 @@ class ArticlesAdapter(diffCallback: DiffUtil.ItemCallback<ArticleJson>) :
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: ArticleJson?) {
+        fun bind(item: ArticleDto?) {
             binding.title.text = item?.title ?: "Loading..."
             binding.source.text =
-                item?.source?.name?.let { if (it.isEmpty()) "Unknown Source" else it }
+                item?.source?.let { if (it.isEmpty()) "Unknown Source" else it }
                     ?: "Loading..."
 
             binding.date.text = item?.publishedAt?.let { DateFormat.ymd(it) } ?: "Loading..."
@@ -45,12 +45,12 @@ class ArticlesAdapter(diffCallback: DiffUtil.ItemCallback<ArticleJson>) :
         }
     }
 
-    object ArticleComparator : DiffUtil.ItemCallback<ArticleJson>() {
-        override fun areItemsTheSame(oldItem: ArticleJson, newItem: ArticleJson): Boolean {
+    object ArticleComparator : DiffUtil.ItemCallback<ArticleDto>() {
+        override fun areItemsTheSame(oldItem: ArticleDto, newItem: ArticleDto): Boolean {
             return oldItem.url == newItem.url
         }
 
-        override fun areContentsTheSame(oldItem: ArticleJson, newItem: ArticleJson): Boolean {
+        override fun areContentsTheSame(oldItem: ArticleDto, newItem: ArticleDto): Boolean {
             return oldItem == newItem
         }
     }
