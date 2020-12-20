@@ -1,4 +1,4 @@
-package com.hodinkee.hodinnews.newslist
+package com.hodinkee.hodinnews.articlelist
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,7 @@ import com.hodinkee.hodinnews.news.remote.ArticleRemotePagedRepository
 import javax.inject.Inject
 
 @ExperimentalPagingApi
-class TestViewModel @ViewModelInject @Inject constructor(
+class ArticleListViewModel @ViewModelInject @Inject constructor(
     articleRemoteRepository: ArticleRemotePagedRepository,
     articleDbPagedRepository: ArticleDbPagedRepository,
 ) : ViewModel() {
