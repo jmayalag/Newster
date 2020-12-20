@@ -4,18 +4,17 @@ import androidx.paging.PagingSource
 import com.hodinkee.hodinnews.news.data.ArticleRepository
 import com.hodinkee.newsapi.model.ArticleJson
 import retrofit2.HttpException
-import kotlin.math.ceil
+
+private const val START_PAGE = 1
 
 class ArticlesPagingSource constructor(
     private val articleRepository: ArticleRepository
 ) : PagingSource<Int, ArticleJson>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleJson> {
         return try {
-            val nextPageNumber = params.key ?: 1
-            val response = articleRepository.fetchNews(params.loadSize, nextPageNumber)
-            val total = response.totalResults
-            val totalPages = ceil(total.toFloat() / params.loadSize).toInt()
-            val nextPage = if (nextPageNumber < totalPages) nextPageNumber + 1 else null
+            val pageNumber = params.key ?: START_PAGE
+            val response = articleRepository.fetchNews(params.loadSize, pageNumber)
+            val nextPage = if (response.articles.isEmpty()) null else pageNumber + 1
 
             LoadResult.Page(
                 data = response.articles,
