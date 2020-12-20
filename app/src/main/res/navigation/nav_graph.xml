@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/testFragment"
-        android:name="com.hodinkee.hodinnews.TestFragment"
+        android:name="com.hodinkee.hodinnews.newslist.TestFragment"
         android:label="test_fragment"
         tools:layout="@layout/test_fragment" />
 </navigation>

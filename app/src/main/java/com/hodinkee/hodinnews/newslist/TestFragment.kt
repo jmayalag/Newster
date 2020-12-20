@@ -1,4 +1,4 @@
-package com.hodinkee.hodinnews
+package com.hodinkee.hodinnews.newslist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 
+@ExperimentalPagingApi
 @AndroidEntryPoint
 class TestFragment : Fragment() {
     private val viewModel: TestViewModel by viewModels()
@@ -59,7 +61,7 @@ class TestFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.articlesFlow.collectLatest { pagingData ->
+            viewModel.articlesDbFlow.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
         }

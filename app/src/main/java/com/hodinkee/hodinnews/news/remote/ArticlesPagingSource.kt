@@ -1,24 +1,23 @@
-package com.hodinkee.hodinnews.news
+package com.hodinkee.hodinnews.news.remote
 
 import androidx.paging.PagingSource
+import com.hodinkee.hodinnews.news.data.ArticleDto
+import com.hodinkee.hodinnews.news.data.toDto
+import com.hodinkee.newsapi.NEWS_START_PAGE
 import com.hodinkee.newsapi.NewsService
-import com.hodinkee.newsapi.model.ArticleJson
 import retrofit2.HttpException
-import kotlin.math.ceil
 
 class ArticlesPagingSource constructor(
     private val newsService: NewsService
-) : PagingSource<Int, ArticleJson>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleJson> {
+) : PagingSource<Int, ArticleDto>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArticleDto> {
         return try {
-            val nextPageNumber = params.key ?: 1
-            val response = newsService.fetchNews(params.loadSize, nextPageNumber)
-            val total = response.totalResults
-            val totalPages = ceil(total.toFloat() / params.loadSize).toInt()
-            val nextPage = if (nextPageNumber < totalPages) nextPageNumber + 1 else null
+            val pageNumber = params.key ?: NEWS_START_PAGE
+            val response = newsService.fetchNews(params.loadSize, pageNumber)
+            val nextPage = if (response.articles.isEmpty()) null else pageNumber + 1
 
             LoadResult.Page(
-                data = response.articles,
+                data = response.articles.map { it.toDto() },
                 prevKey = null,
                 nextKey = nextPage
             )
