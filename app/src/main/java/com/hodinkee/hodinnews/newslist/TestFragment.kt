@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
+import timber.log.Timber
 
 @ExperimentalPagingApi
 @AndroidEntryPoint
@@ -38,7 +39,9 @@ class TestFragment : Fragment() {
             lifecycleOwner = this@TestFragment.viewLifecycleOwner
         }
 
-        pagingAdapter = ArticlesAdapter(ArticlesAdapter.ArticleComparator)
+        pagingAdapter = ArticlesAdapter(ArticlesAdapter.ArticleComparator) {
+            Timber.d("Clicked %s", it.url)
+        }
         recyclerView = binding.articlesList
         swipeRefresh = binding.swipeRefresh
         recyclerView.adapter = pagingAdapter.withLoadStateHeaderAndFooter(
