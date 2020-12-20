@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.hodinkee.hodinnews.DateFormat
 import com.hodinkee.hodinnews.databinding.ArticleItemBinding
 import com.hodinkee.newsapi.model.ArticleJson
 
@@ -30,6 +31,8 @@ class ArticlesAdapter(diffCallback: DiffUtil.ItemCallback<ArticleJson>) :
             binding.source.text =
                 item?.source?.name?.let { if (it.isEmpty()) "Unknown Source" else it }
                     ?: "Loading..."
+
+            binding.date.text = item?.publishedAt?.let { DateFormat.ymd(it) } ?: "Loading..."
             binding.executePendingBindings()
         }
 
