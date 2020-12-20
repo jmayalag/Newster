@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.hodinkee.hodinnews.databinding.ArticleDetailFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ArticleDetailFragment : Fragment() {
@@ -32,8 +33,15 @@ class ArticleDetailFragment : Fragment() {
                 this.listener(
                     onStart = { binding.progress.visibility = View.VISIBLE },
                     onSuccess = { _, _ -> binding.progress.visibility = View.GONE },
-                    onError = { _, _ -> binding.progress.visibility = View.GONE },
-                    onCancel = { binding.progress.visibility = View.GONE }
+                    onError = { request, e ->
+                        Timber.e(e, "Could not load image. %s", article.urlToImage)
+                        binding.progress.visibility = View.GONE
+                        binding.image.visibility = View.GONE
+                    },
+                    onCancel = {
+                        binding.progress.visibility = View.GONE
+                        binding.image.visibility = View.GONE
+                    }
                 )
             }
         }
