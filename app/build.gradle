@@ -56,6 +56,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
 
+    // Paging
+    def paging_version = "3.0.0-alpha11"
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
     // Networking
     implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
     implementation "com.squareup.okhttp3:logging-interceptor:${versions.ok_http}"

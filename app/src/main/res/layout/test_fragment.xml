@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -14,10 +14,12 @@
         android:layout_height="match_parent"
         tools:context=".TestFragment">
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/articles_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@{vm.articlesString}" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/article_item" />
 
     </FrameLayout>
 </layout>
