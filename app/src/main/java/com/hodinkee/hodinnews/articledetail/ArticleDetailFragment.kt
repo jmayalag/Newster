@@ -1,5 +1,7 @@
 package com.hodinkee.hodinnews.articledetail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,9 +23,11 @@ class ArticleDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val binding = ArticleDetailFragmentBinding.inflate(inflater, container, false)
-        binding.article = args.article
+        val article = args.article.also {
+            binding.article = it
+        }
 
-        args.article.urlToImage?.let {
+        article.urlToImage?.let {
             binding.image.load(it) {
                 this.listener(
                     onStart = { binding.progress.visibility = View.VISIBLE },
@@ -32,6 +36,11 @@ class ArticleDetailFragment : Fragment() {
                     onCancel = { binding.progress.visibility = View.GONE }
                 )
             }
+        }
+
+        binding.keepReadingBtn.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+            context?.startActivity(intent)
         }
 
         return binding.root

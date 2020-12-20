@@ -1,7 +1,9 @@
 package com.hodinkee.hodinnews.util
 
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import java.util.*
 
 @BindingAdapter("app:visible")
 fun setVisible(view: View, visible: Boolean) {
@@ -11,4 +13,9 @@ fun setVisible(view: View, visible: Boolean) {
 @BindingAdapter("app:present")
 fun setPresent(view: View, present: Boolean) {
     view.visibility = if (present) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("app:dateYmd")
+fun setDateYms(view: TextView, date: Date) {
+    view.text = DateFormat.ymd(date)
 }

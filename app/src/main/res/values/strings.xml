@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HodinNews</string>
     <string name="retry">Retry</string>
+    <string name="keep_reading">Keep reading</string>
 </resources>
