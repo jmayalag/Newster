@@ -2,6 +2,7 @@ package com.hodinkee.hodinnews.news.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "articles")
 data class ArticleDto(
@@ -13,4 +14,5 @@ data class ArticleDto(
  val description: String?,
  val urlToImage: String?,
  val content: String,
+ val publishedAt: Date
 )

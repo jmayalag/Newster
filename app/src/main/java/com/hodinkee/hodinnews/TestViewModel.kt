@@ -7,13 +7,13 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.hodinkee.hodinnews.news.ArticlesPagingSource
-import com.hodinkee.newsapi.NewsService
+import com.hodinkee.hodinnews.news.data.ArticleRepository
 
 class TestViewModel @ViewModelInject constructor(
-    private val newsService: NewsService
+    private val articlesRepository: ArticleRepository
 ) : ViewModel() {
 
     val articlesFlow = Pager(PagingConfig(pageSize = 20)) {
-        ArticlesPagingSource(newsService)
+        ArticlesPagingSource(articlesRepository)
     }.flow.cachedIn(viewModelScope)
 }
