@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/articleListFragment"
         android:name="com.hodinkee.hodinnews.articlelist.ArticleListFragment"
-        android:label="article_list_fragment"
-        tools:layout="@layout/article_list_fragment" >
+        android:label="@string/app_name"
+        tools:layout="@layout/article_list_fragment">
         <action
             android:id="@+id/action_articleListFragment_to_articleDetailFragment"
             app:destination="@id/articleDetailFragment" />
@@ -20,8 +20,8 @@
     <fragment
         android:id="@+id/articleDetailFragment"
         android:name="com.hodinkee.hodinnews.articledetail.ArticleDetailFragment"
-        android:label="article_detail_fragment"
-        tools:layout="@layout/article_detail_fragment" >
+        android:label="@string/app_name"
+        tools:layout="@layout/article_detail_fragment">
         <argument
             android:name="article"
             app:argType="com.hodinkee.hodinnews.Article" />
@@ -29,6 +29,6 @@
     <fragment
         android:id="@+id/articleFormFragment"
         android:name="com.hodinkee.hodinnews.ArticleFormFragment"
-        android:label="article_form_fragment"
+        android:label="Add an Article"
         tools:layout="@layout/article_form_fragment" />
 </navigation>
