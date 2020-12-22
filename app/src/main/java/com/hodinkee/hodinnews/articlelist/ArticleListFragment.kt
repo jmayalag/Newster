@@ -17,10 +17,7 @@ import com.hodinkee.hodinnews.news.ArticlesAdapter
 import com.hodinkee.hodinnews.news.ArticlesLoadStateAdapter
 import com.hodinkee.hodinnews.toView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 
 @ExperimentalPagingApi
 @AndroidEntryPoint
@@ -55,6 +52,12 @@ class ArticleListFragment : Fragment() {
             footer = ArticlesLoadStateAdapter(pagingAdapter)
         )
 
+        binding.fab.setOnClickListener {
+            findNavController().navigate(
+                ArticleListFragmentDirections.actionArticleListFragmentToArticleFormFragment()
+            )
+        }
+
         return binding.root
     }
 
@@ -70,7 +73,7 @@ class ArticleListFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.articlesDbFlow.collectLatest { pagingData ->
+            viewModel.localArticlesFlow.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
         }

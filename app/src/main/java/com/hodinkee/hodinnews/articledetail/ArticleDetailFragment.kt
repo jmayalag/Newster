@@ -46,9 +46,15 @@ class ArticleDetailFragment : Fragment() {
             }
         }
 
-        binding.keepReadingBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
-            context?.startActivity(intent)
+        if (article.url.isNotBlank()) {
+            binding.keepReadingBtn.setOnClickListener {
+                kotlin.runCatching {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
+                    context?.startActivity(intent)
+                }
+            }
+        } else {
+            binding.keepReadingBtn.visibility = View.GONE
         }
 
         return binding.root

@@ -2,4 +2,7 @@
     <string name="app_name">HodinNews</string>
     <string name="retry">Retry</string>
     <string name="keep_reading">Keep reading</string>
+    <string name="form_title">Title</string>
+    <string name="form_content">Content</string>
+    <string name="form_button_save">Save Article</string>
 </resources>

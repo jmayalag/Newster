@@ -3,6 +3,7 @@ package com.hodinkee.hodinnews.util
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
 @BindingAdapter("app:visible")
@@ -18,4 +19,15 @@ fun setPresent(view: View, present: Boolean) {
 @BindingAdapter("app:dateYmd")
 fun setDateYms(view: TextView, date: Date) {
     view.text = DateFormat.ymd(date)
+}
+
+@BindingAdapter("app:textError")
+fun setTextError(view: TextInputLayout, error: String?) {
+    if (error.isNullOrEmpty()) {
+        view.error = null
+        view.isErrorEnabled = false
+    } else {
+        view.error = error
+        view.isErrorEnabled = true
+    }
 }
