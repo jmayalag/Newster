@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import coil.load
 import com.hodinkee.hodinnews.R
 import com.hodinkee.hodinnews.databinding.ArticleDetailFragmentBinding
+import com.hodinkee.hodinnews.news.data.Category
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -20,7 +21,7 @@ class ArticleDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        setHasOptionsMenu(args.article.category == Category.LOCAL)
     }
 
     override fun onCreateView(
