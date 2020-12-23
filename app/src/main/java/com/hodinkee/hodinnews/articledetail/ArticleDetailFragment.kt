@@ -39,6 +39,18 @@ class ArticleDetailFragment : Fragment() {
     ): View {
         binding = ArticleDetailFragmentBinding.inflate(inflater, container, false)
 
+        if (!isLocal) {
+            binding.keepReadingBtn.setOnClickListener {
+                kotlin.runCatching {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(args.article.url))
+                    context?.startActivity(intent)
+                }
+            }
+        } else {
+            binding.keepReadingBtn.visibility = View.GONE
+        }
+
+
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.getArticleFlow(args.article).collectLatest {
                 bindArticle(it)
@@ -75,19 +87,6 @@ class ArticleDetailFragment : Fragment() {
                 )
             }
         }
-
-
-        if (!isLocal) {
-            binding.keepReadingBtn.setOnClickListener {
-                kotlin.runCatching {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.url))
-                    context?.startActivity(intent)
-                }
-            }
-        } else {
-            binding.keepReadingBtn.visibility = View.GONE
-        }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
