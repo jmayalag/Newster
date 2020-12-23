@@ -8,7 +8,7 @@
 
         <variable
             name="article"
-            type="com.hodinkee.hodinnews.Article" />
+            type="com.incursio.newster.Article" />
     </data>
 
     <ScrollView
