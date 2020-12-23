@@ -1,3 +1,3 @@
-package com.hodinkee.newsapi
+package com.incursio.newsapi
 
 interface RemoteApiTest

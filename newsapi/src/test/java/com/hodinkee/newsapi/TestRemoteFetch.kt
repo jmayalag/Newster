@@ -1,5 +1,9 @@
-package com.hodinkee.newsapi
+package com.incursio.newsapi
 
+import com.incursio.newsapi.NewsService
+import com.incursio.newsapi.provideMoshiConverter
+import com.incursio.newsapi.provideOkHttpClientBuilder
+import com.incursio.newsapi.provideRetrofitBuilder
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import org.junit.experimental.categories.Category

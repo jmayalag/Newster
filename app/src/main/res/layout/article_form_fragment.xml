@@ -5,7 +5,7 @@
 
         <variable
             name="vm"
-            type="com.hodinkee.hodinnews.ArticleFormViewModel" />
+            type="com.incursio.newster.view.form.ArticleFormViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

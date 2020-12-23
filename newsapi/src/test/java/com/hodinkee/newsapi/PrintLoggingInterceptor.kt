@@ -1,4 +1,4 @@
-package com.hodinkee.newsapi
+package com.incursio.newsapi
 
 import okhttp3.Interceptor
 import okhttp3.Response

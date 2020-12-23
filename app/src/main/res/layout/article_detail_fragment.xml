@@ -8,7 +8,7 @@
 
         <variable
             name="article"
-            type="com.hodinkee.hodinnews.Article" />
+            type="com.incursio.newster.view.Article" />
     </data>
 
     <ScrollView
@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:animateLayoutChanges="true"
             android:padding="6dp"
-            tools:context=".articledetail.ArticleDetailFragment">
+            tools:context="com.incursio.newster.view.detail.ArticleDetailFragment">
 
 
             <TextView
