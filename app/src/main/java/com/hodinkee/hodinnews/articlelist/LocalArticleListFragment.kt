@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,7 +21,7 @@ import kotlinx.coroutines.flow.collectLatest
 @ExperimentalPagingApi
 @AndroidEntryPoint
 class LocalArticleListFragment : Fragment() {
-    private val viewModel: ArticleListViewModel by viewModels()
+    private val viewModel: ArticleListViewModel by activityViewModels()
 
     private lateinit var pagingAdapter: ArticlesAdapter
     private lateinit var recyclerView: RecyclerView

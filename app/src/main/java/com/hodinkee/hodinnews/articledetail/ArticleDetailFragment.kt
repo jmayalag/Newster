@@ -16,7 +16,6 @@ import com.hodinkee.hodinnews.Article
 import com.hodinkee.hodinnews.R
 import com.hodinkee.hodinnews.databinding.ArticleDetailFragmentBinding
 import com.hodinkee.hodinnews.news.data.Category
-import com.hodinkee.hodinnews.toView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
@@ -85,6 +84,8 @@ class ArticleDetailFragment : Fragment() {
                     context?.startActivity(intent)
                 }
             }
+        } else {
+            binding.keepReadingBtn.visibility = View.GONE
         }
 
     }
