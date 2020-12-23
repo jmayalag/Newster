@@ -27,7 +27,7 @@ class ArticleFormViewModel @ViewModelInject @Inject constructor(
     val articleCreatedEvent = SingleLiveEvent<Article>()
 
     private var savedArticle: Article? = null
-    private var imageUri: Uri? = null
+    private var imageUri: String? = null
 
     fun editArticle(article: Article) {
         title.value = article.title
@@ -83,7 +83,7 @@ class ArticleFormViewModel @ViewModelInject @Inject constructor(
             source = "Local",
             title = title,
             url = "",
-            urlToImage = imageUri?.toString(),
+            urlToImage = imageUri,
             content = content,
             publishedAt = Date(),
             category = Category.LOCAL,
@@ -94,7 +94,7 @@ class ArticleFormViewModel @ViewModelInject @Inject constructor(
         return article
     }
 
-    fun setImage(photoUri: Uri) {
+    fun setImage(photoUri: String) {
         imageUri = photoUri
     }
 }

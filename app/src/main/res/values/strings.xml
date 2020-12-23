@@ -16,4 +16,5 @@
     <string name="delete">Delete</string>
     <string name="add_image">Add image</string>
     <string name="storage_permission_message">External storage is required to select an image for your article. Please enable the permissions.</string>
+    <string name="external_storage_permission_title">External Storage</string>
 </resources>
