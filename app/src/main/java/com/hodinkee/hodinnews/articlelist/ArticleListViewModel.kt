@@ -20,7 +20,7 @@ class ArticleListViewModel @ViewModelInject @Inject constructor(
     val articlesFlow = articleRemoteRepository.fetchNews(20).cachedIn(viewModelScope)
 
     @ExperimentalPagingApi
-    val articlesDbFlow = articleDbPagedRepository.fetchNews(20).cachedIn(viewModelScope)
+    val remoteArticlesFlow = articleDbPagedRepository.fetchNews(20).cachedIn(viewModelScope)
 
     val localArticlesFlow = localArticleDbPagedRepository.fetchNews(20).cachedIn(viewModelScope)
 }

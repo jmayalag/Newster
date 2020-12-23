@@ -3,20 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/articleListFragment">
+    app:startDestination="@id/localArticleListFragment">
 
     <fragment
-        android:id="@+id/articleListFragment"
-        android:name="com.hodinkee.hodinnews.articlelist.ArticleListFragment"
+        android:id="@+id/localArticleListFragment"
+        android:name="com.hodinkee.hodinnews.articlelist.LocalArticleListFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/article_list_fragment">
+        tools:layout="@layout/local_article_list_fragment">
         <action
-            android:id="@+id/action_articleListFragment_to_articleDetailFragment"
+            android:id="@+id/to_articleDetailFragment"
             app:destination="@id/articleDetailFragment" />
         <action
             android:id="@+id/action_articleListFragment_to_articleFormFragment"
             app:destination="@id/articleFormFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/remoteArticleListFragment"
+        android:name="com.hodinkee.hodinnews.articlelist.RemoteArticleListFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/remote_article_list_fragment">
+        <action
+            android:id="@+id/to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/articleDetailFragment"
         android:name="com.hodinkee.hodinnews.articledetail.ArticleDetailFragment"

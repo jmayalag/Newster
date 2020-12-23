@@ -9,10 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.hodinkee.hodinnews.databinding.ArticleListFragmentBinding
+import com.hodinkee.hodinnews.databinding.LocalArticleListFragmentBinding
 import com.hodinkee.hodinnews.news.ArticlesAdapter
 import com.hodinkee.hodinnews.news.ArticlesLoadStateAdapter
 import com.hodinkee.hodinnews.toView
@@ -21,32 +19,24 @@ import kotlinx.coroutines.flow.collectLatest
 
 @ExperimentalPagingApi
 @AndroidEntryPoint
-class ArticleListFragment : Fragment() {
+class LocalArticleListFragment : Fragment() {
     private val viewModel: ArticleListViewModel by viewModels()
 
     private lateinit var pagingAdapter: ArticlesAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var swipeRefresh: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = ArticleListFragmentBinding.inflate(inflater, container, false).apply {
-            vm = viewModel
-            lifecycleOwner = this@ArticleListFragment.viewLifecycleOwner
-        }
+        val binding = LocalArticleListFragmentBinding.inflate(inflater, container, false)
 
         pagingAdapter = ArticlesAdapter(ArticlesAdapter.ArticleComparator) {
             val article = it.toView()
-            val directions =
-                ArticleListFragmentDirections.actionArticleListFragmentToArticleDetailFragment(
-                    article
-                )
+            val directions = LocalArticleListFragmentDirections.toArticleDetailFragment(article)
             findNavController().navigate(directions)
         }
         recyclerView = binding.articlesList
-        swipeRefresh = binding.swipeRefresh
         recyclerView.adapter = pagingAdapter.withLoadStateHeaderAndFooter(
             header = ArticlesLoadStateAdapter(pagingAdapter),
             footer = ArticlesLoadStateAdapter(pagingAdapter)
@@ -54,7 +44,7 @@ class ArticleListFragment : Fragment() {
 
         binding.fab.setOnClickListener {
             findNavController().navigate(
-                ArticleListFragmentDirections.actionArticleListFragmentToArticleFormFragment()
+                LocalArticleListFragmentDirections.actionArticleListFragmentToArticleFormFragment()
             )
         }
 
@@ -64,27 +54,10 @@ class ArticleListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        swipeRefresh.setOnRefreshListener { pagingAdapter.refresh() }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            pagingAdapter.loadStateFlow.collectLatest { loadStates ->
-                swipeRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
-            }
-        }
-
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.localArticlesFlow.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
         }
-
-        /*viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            pagingAdapter.loadStateFlow
-                // Only emit when REFRESH LoadState for RemoteMediator changes.
-                .distinctUntilChangedBy { it.refresh }
-                // Only react to cases where Remote REFRESH completes i.e., NotLoading.
-                .filter { it.refresh is LoadState.NotLoading }
-                .collect { recyclerView.smoothScrollToPosition(0) }
-        }*/
     }
 }
