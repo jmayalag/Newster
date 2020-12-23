@@ -1,5 +1,12 @@
 # Newster App
-A simple app to browse news from [https://newsapi.org/]
+A simple app to browse news from https://newsapi.org/ showcasing the use of Android Architecture components.
+
+- Room (Persistance)
+- Paging Library
+- Navigation Component
+- View Models (MVVM)
+- Coroutines and Flows
+
 
 ## Screenshots
 
