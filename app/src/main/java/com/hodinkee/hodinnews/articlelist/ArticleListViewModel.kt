@@ -8,6 +8,7 @@ import androidx.paging.cachedIn
 import com.hodinkee.hodinnews.news.db.ArticleDbPagedRepository
 import com.hodinkee.hodinnews.news.db.LocalArticleDbPagedRepository
 import com.hodinkee.hodinnews.news.remote.ArticleRemotePagedRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 @ExperimentalPagingApi
@@ -16,6 +17,10 @@ class ArticleListViewModel @ViewModelInject @Inject constructor(
     articleDbPagedRepository: ArticleDbPagedRepository,
     localArticleDbPagedRepository: LocalArticleDbPagedRepository
 ) : ViewModel() {
+
+    init {
+        Timber.d("Created")
+    }
 
     val articlesFlow = articleRemoteRepository.fetchNews(20).cachedIn(viewModelScope)
 

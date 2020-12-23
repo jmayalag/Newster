@@ -8,13 +8,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.hodinkee.hodinnews.Article
 import com.hodinkee.hodinnews.R
 import com.hodinkee.hodinnews.databinding.ArticleDetailFragmentBinding
 import com.hodinkee.hodinnews.news.data.Category
+import com.hodinkee.hodinnews.toView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -23,6 +27,7 @@ class ArticleDetailFragment : Fragment() {
     private val args: ArticleDetailFragmentArgs by navArgs()
 
     private val isLocal get() = args.article.category == Category.LOCAL
+    private lateinit var binding: ArticleDetailFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,17 +38,33 @@ class ArticleDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = ArticleDetailFragmentBinding.inflate(inflater, container, false)
-        val article = args.article.also {
-            binding.article = it
+        binding = ArticleDetailFragmentBinding.inflate(inflater, container, false)
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.getArticleFlow(args.article).collectLatest {
+                bindArticle(it)
+            }
         }
 
+        viewModel.deleteSuccesEvent.observe(viewLifecycleOwner) {
+            findNavController().popBackStack()
+        }
+
+        viewModel.errorEvent.observe(viewLifecycleOwner) { error ->
+            context?.let { Toast.makeText(it, error, Toast.LENGTH_LONG).show() }
+        }
+
+        return binding.root
+    }
+
+    private fun bindArticle(article: Article) {
+        binding.article = article
         article.urlToImage?.let {
             binding.image.load(it) {
                 this.listener(
                     onStart = { binding.progress.visibility = View.VISIBLE },
                     onSuccess = { _, _ -> binding.progress.visibility = View.GONE },
-                    onError = { request, e ->
+                    onError = { _, e ->
                         Timber.e(e, "Could not load image. %s", article.urlToImage)
                         binding.progress.visibility = View.GONE
                         binding.image.visibility = View.GONE
@@ -66,15 +87,6 @@ class ArticleDetailFragment : Fragment() {
             }
         }
 
-        viewModel.deleteSuccesEvent.observe(viewLifecycleOwner) {
-            findNavController().popBackStack()
-        }
-
-        viewModel.errorEvent.observe(viewLifecycleOwner) { error ->
-            context?.let { Toast.makeText(it, error, Toast.LENGTH_LONG).show() }
-        }
-
-        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

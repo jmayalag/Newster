@@ -2,6 +2,7 @@ package com.hodinkee.hodinnews.news.data
 
 import androidx.paging.PagingSource
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -16,7 +17,10 @@ interface ArticleDao {
     fun pagingSource(category: Category): PagingSource<Int, ArticleDto>
 
     @Query("SELECT * FROM articles WHERE id = :id LIMIT 1")
-    suspend fun findById(id: String): ArticleDto
+    fun findByIdFlow(id: String): Flow<ArticleDto?>
+
+    @Query("SELECT * FROM articles WHERE id = :id LIMIT 1")
+    suspend fun findById(id: String): ArticleDto?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg articles: ArticleDto)

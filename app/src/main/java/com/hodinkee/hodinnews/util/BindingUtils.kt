@@ -17,8 +17,8 @@ fun setPresent(view: View, present: Boolean) {
 }
 
 @BindingAdapter("app:dateYmd")
-fun setDateYms(view: TextView, date: Date) {
-    view.text = DateFormat.ymd(date)
+fun setDateYms(view: TextView, date: Date?) {
+    view.text = date?.let { DateFormat.ymd(it) }
 }
 
 @BindingAdapter("app:textError")

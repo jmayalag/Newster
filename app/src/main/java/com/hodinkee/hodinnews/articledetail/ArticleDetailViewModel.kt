@@ -6,7 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.hodinkee.hodinnews.Article
 import com.hodinkee.hodinnews.news.data.ArticleDao
 import com.hodinkee.hodinnews.toDto
+import com.hodinkee.hodinnews.toView
 import com.hodinkee.hodinnews.util.SingleLiveEvent
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,6 +19,11 @@ class ArticleDetailViewModel @ViewModelInject @Inject constructor(
 ) : ViewModel() {
     val errorEvent = SingleLiveEvent<String>()
     val deleteSuccesEvent = SingleLiveEvent<Unit>()
+
+    fun getArticleFlow(article: Article) = articleDao.findByIdFlow(article.id)
+        .filterNotNull()
+        .map { it.toView() }
+
 
     fun deleteArticle(article: Article) {
         viewModelScope.launch {
