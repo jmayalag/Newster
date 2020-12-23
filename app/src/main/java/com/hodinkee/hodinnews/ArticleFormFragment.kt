@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,14 @@ class ArticleFormFragment : Fragment() {
             this.binding = it
         }
 
-        args.article?.let { viewModel.editArticle(it) }
+        args.article?.let {
+            viewModel.editArticle(it)
+            it.urlToImage?.let { url ->
+                binding.imageView.load(url) {
+                    listener { _, _ -> binding.imageView.visibility = View.VISIBLE }
+                }
+            }
+        }
 
         binding.vm = viewModel
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -113,7 +119,11 @@ class ArticleFormFragment : Fragment() {
     }
 
     private fun selectImage() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
+        }.let { Intent.createChooser(it, "Select a Picture") }
+
         kotlin.runCatching { startActivityForResult(intent, PICK_PHOTO_CODE) }
     }
 
