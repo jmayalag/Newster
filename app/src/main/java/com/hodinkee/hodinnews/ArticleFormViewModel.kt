@@ -25,6 +25,13 @@ class ArticleFormViewModel @ViewModelInject @Inject constructor(
     val errorEvent = SingleLiveEvent<String>()
     val articleCreatedEvent = SingleLiveEvent<Article>()
 
+    private var savedArticle: Article? = null
+
+    fun editArticle(article: Article) {
+        title.value = article.title
+        content.value = article.content
+        savedArticle = article
+    }
 
     fun saveArticle() {
         Timber.d("%s, %s", title.value, content.value)
@@ -51,40 +58,37 @@ class ArticleFormViewModel @ViewModelInject @Inject constructor(
         }
 
         viewModelScope.launch {
-
             try {
-                val article = ArticleDto(
-                    UUID.randomUUID().toString(),
-                    author = "User",
-                    source = "Local",
-                    title = title,
-                    url = "",
-                    urlToImage = null,
-                    content = content,
-                    publishedAt = Date(),
-                    category = Category.LOCAL,
-                    description = null
-                )
-
-                articleDao.insert(
-                    ArticleDto(
-                        UUID.randomUUID().toString(),
-                        author = "",
-                        source = "",
-                        title = title,
-                        url = "",
-                        urlToImage = null,
-                        content = content,
-                        publishedAt = Date(),
-                        category = Category.LOCAL,
-                        description = null
-                    )
-                )
+                val article = upsert(title, content)
                 articleCreatedEvent.value = article.toView()
             } catch (e: Exception) {
                 Timber.e(e, "Error creating article")
                 errorEvent.value = "Could not create the article"
             }
         }
+    }
+
+    private suspend fun upsert(title: String, content: String): ArticleDto {
+        savedArticle?.toDto()?.let {
+            val updated = it.copy(title = title, content = content)
+            articleDao.update(updated)
+            return updated
+        }
+
+        val article = ArticleDto(
+            UUID.randomUUID().toString(),
+            author = "User",
+            source = "Local",
+            title = title,
+            url = "",
+            urlToImage = null,
+            content = content,
+            publishedAt = Date(),
+            category = Category.LOCAL,
+            description = null
+        )
+
+        articleDao.insert(article)
+        return article
     }
 }

@@ -108,6 +108,9 @@ class ArticleDetailFragment : Fragment() {
                 true
             }
             R.id.action_edit -> {
+                findNavController().navigate(
+                    ArticleDetailFragmentDirections.actionEditArticle(args.article)
+                )
                 true
             }
             else -> super.onOptionsItemSelected(item)

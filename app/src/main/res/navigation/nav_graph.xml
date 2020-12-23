@@ -14,7 +14,7 @@
             android:id="@+id/to_articleDetailFragment"
             app:destination="@id/articleDetailFragment" />
         <action
-            android:id="@+id/action_articleListFragment_to_articleFormFragment"
+            android:id="@+id/action_createArticle"
             app:destination="@id/articleFormFragment" />
     </fragment>
 
@@ -36,10 +36,19 @@
         <argument
             android:name="article"
             app:argType="com.hodinkee.hodinnews.Article" />
+        <action
+            android:id="@+id/action_editArticle"
+            app:destination="@id/articleFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/articleFormFragment"
         android:name="com.hodinkee.hodinnews.ArticleFormFragment"
         android:label="Add an Article"
-        tools:layout="@layout/article_form_fragment" />
+        tools:layout="@layout/article_form_fragment" >
+        <argument
+            android:name="article"
+            app:argType="com.hodinkee.hodinnews.Article"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

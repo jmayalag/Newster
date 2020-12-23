@@ -44,7 +44,7 @@ class LocalArticleListFragment : Fragment() {
 
         binding.fab.setOnClickListener {
             findNavController().navigate(
-                LocalArticleListFragmentDirections.actionArticleListFragmentToArticleFormFragment()
+                LocalArticleListFragmentDirections.actionCreateArticle()
             )
         }
 
