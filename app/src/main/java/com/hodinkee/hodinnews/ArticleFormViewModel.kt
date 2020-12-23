@@ -1,5 +1,6 @@
 package com.hodinkee.hodinnews
 
+import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,7 @@ class ArticleFormViewModel @ViewModelInject @Inject constructor(
     val articleCreatedEvent = SingleLiveEvent<Article>()
 
     private var savedArticle: Article? = null
+    private var imageUri: Uri? = null
 
     fun editArticle(article: Article) {
         title.value = article.title
@@ -81,7 +83,7 @@ class ArticleFormViewModel @ViewModelInject @Inject constructor(
             source = "Local",
             title = title,
             url = "",
-            urlToImage = null,
+            urlToImage = imageUri?.toString(),
             content = content,
             publishedAt = Date(),
             category = Category.LOCAL,
@@ -90,5 +92,9 @@ class ArticleFormViewModel @ViewModelInject @Inject constructor(
 
         articleDao.insert(article)
         return article
+    }
+
+    fun setImage(photoUri: Uri) {
+        imageUri = photoUri
     }
 }
