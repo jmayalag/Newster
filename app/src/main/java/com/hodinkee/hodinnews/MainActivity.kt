@@ -1,7 +1,6 @@
 package com.hodinkee.hodinnews
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,9 +17,15 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.nav_host_fragment)
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.toolbar
-            .setupWithNavController(navController, appBarConfiguration)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.remoteArticleListFragment,
+                R.id.localArticleListFragment
+            )
+        )
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
+
+        binding.contentMain.bottomNav.setupWithNavController(navController)
     }
 }

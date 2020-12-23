@@ -7,4 +7,6 @@
     <string name="form_button_save">Save Article</string>
     <string name="action_delete">Delete</string>
     <string name="action_edit">Edit</string>
+    <string name="title_world">World</string>
+    <string name="title_local">Local</string>
 </resources>
