@@ -1,4 +1,4 @@
-package com.incursio.newster.articlelist
+package com.incursio.newster.view.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
@@ -14,9 +13,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.incursio.newster.databinding.RemoteArticleListFragmentBinding
-import com.incursio.newster.news.ArticlesAdapter
-import com.incursio.newster.news.ArticlesLoadStateAdapter
-import com.incursio.newster.toView
+import com.incursio.newster.data.toView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 

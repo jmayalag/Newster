@@ -1,4 +1,4 @@
-package com.incursio.newster.news
+package com.incursio.newster.view.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.incursio.newster.databinding.ArticleItemBinding
-import com.incursio.newster.news.data.ArticleDto
+import com.incursio.newster.data.local.ArticleDto
 import com.incursio.newster.util.DateFormat
 
 class ArticlesAdapter(

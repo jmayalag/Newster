@@ -1,4 +1,4 @@
-package com.incursio.newster.news
+package com.incursio.newster.view.list
 
 import android.view.ViewGroup
 import androidx.paging.LoadState

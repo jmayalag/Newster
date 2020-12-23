@@ -2,7 +2,7 @@ package com.incursio.newster.di
 
 import android.content.Context
 import androidx.room.Room
-import com.incursio.newster.AppDatabase
+import com.incursio.newster.data.local.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

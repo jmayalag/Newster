@@ -1,13 +1,13 @@
-package com.incursio.newster.articledetail
+package com.incursio.newster.view.detail
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.incursio.newster.Article
-import com.incursio.newster.news.data.ArticleDao
-import com.incursio.newster.toDto
-import com.incursio.newster.toView
+import com.incursio.newster.data.local.ArticleDao
+import com.incursio.newster.data.toDto
+import com.incursio.newster.data.toView
 import com.incursio.newster.util.SingleLiveEvent
+import com.incursio.newster.view.Article
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch

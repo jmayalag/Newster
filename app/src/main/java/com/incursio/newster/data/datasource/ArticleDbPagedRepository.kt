@@ -1,13 +1,12 @@
-package com.incursio.newster.news.db
+package com.incursio.newster.data.datasource
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.incursio.newster.AppDatabase
-import com.incursio.newster.news.ArticlePagedRepository
-import com.incursio.newster.news.data.ArticleDto
-import com.incursio.newster.news.data.Category
+import com.incursio.newster.data.local.AppDatabase
+import com.incursio.newster.data.local.ArticleDto
+import com.incursio.newster.data.local.Category
 import com.incursio.newsapi.NewsService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

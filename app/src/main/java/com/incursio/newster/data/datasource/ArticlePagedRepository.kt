@@ -1,7 +1,7 @@
-package com.incursio.newster.news
+package com.incursio.newster.data.datasource
 
 import androidx.paging.PagingData
-import com.incursio.newster.news.data.ArticleDto
+import com.incursio.newster.data.local.ArticleDto
 import kotlinx.coroutines.flow.Flow
 
 interface ArticlePagedRepository {

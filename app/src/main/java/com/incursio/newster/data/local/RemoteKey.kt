@@ -1,4 +1,4 @@
-package com.incursio.newster.news.data
+package com.incursio.newster.data.local
 
 import androidx.room.*
 

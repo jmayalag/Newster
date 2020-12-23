@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/localArticleListFragment"
-        android:name="com.incursio.newster.articlelist.LocalArticleListFragment"
+        android:name="com.incursio.newster.view.list.LocalArticleListFragment"
         android:label="@string/app_name"
         tools:layout="@layout/local_article_list_fragment">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/remoteArticleListFragment"
-        android:name="com.incursio.newster.articlelist.RemoteArticleListFragment"
+        android:name="com.incursio.newster.view.list.RemoteArticleListFragment"
         android:label="@string/app_name"
         tools:layout="@layout/remote_article_list_fragment">
         <action
@@ -30,24 +30,24 @@
 
     <fragment
         android:id="@+id/articleDetailFragment"
-        android:name="com.incursio.newster.articledetail.ArticleDetailFragment"
+        android:name="com.incursio.newster.view.detail.ArticleDetailFragment"
         android:label="@string/app_name"
         tools:layout="@layout/article_detail_fragment">
         <argument
             android:name="article"
-            app:argType="com.incursio.newster.Article" />
+            app:argType="com.incursio.newster.view.Article" />
         <action
             android:id="@+id/action_editArticle"
             app:destination="@id/articleFormFragment" />
     </fragment>
     <fragment
         android:id="@+id/articleFormFragment"
-        android:name="com.incursio.newster.ArticleFormFragment"
+        android:name="com.incursio.newster.view.form.ArticleFormFragment"
         android:label="Add an Article"
         tools:layout="@layout/article_form_fragment" >
         <argument
             android:name="article"
-            app:argType="com.incursio.newster.Article"
+            app:argType="com.incursio.newster.view.Article"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>

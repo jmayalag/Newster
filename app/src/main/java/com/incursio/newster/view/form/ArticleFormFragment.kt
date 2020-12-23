@@ -1,4 +1,4 @@
-package com.incursio.newster
+package com.incursio.newster.view.form
 
 import android.Manifest
 import android.content.Intent
@@ -17,6 +17,7 @@ import androidx.lifecycle.whenStarted
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.incursio.newster.R
 import com.incursio.newster.databinding.ArticleFormFragmentBinding
 import com.incursio.newster.util.hideKeyboard
 import com.karumi.dexter.Dexter

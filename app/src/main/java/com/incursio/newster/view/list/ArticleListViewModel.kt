@@ -1,13 +1,13 @@
-package com.incursio.newster.articlelist
+package com.incursio.newster.view.list
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.cachedIn
-import com.incursio.newster.news.db.ArticleDbPagedRepository
-import com.incursio.newster.news.db.LocalArticleDbPagedRepository
-import com.incursio.newster.news.remote.ArticleRemotePagedRepository
+import com.incursio.newster.data.datasource.ArticleDbPagedRepository
+import com.incursio.newster.data.datasource.LocalArticleDbPagedRepository
+import com.incursio.newster.data.remote.ArticleRemotePagedRepository
 import timber.log.Timber
 import javax.inject.Inject
 

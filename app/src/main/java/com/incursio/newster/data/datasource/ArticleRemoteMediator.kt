@@ -1,15 +1,15 @@
-package com.incursio.newster.news.db
+package com.incursio.newster.data.datasource
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.incursio.newster.AppDatabase
-import com.incursio.newster.news.data.ArticleDto
-import com.incursio.newster.news.data.Category
-import com.incursio.newster.news.data.RemoteKeyDto
-import com.incursio.newster.news.data.toDto
+import com.incursio.newster.data.local.AppDatabase
+import com.incursio.newster.data.local.ArticleDto
+import com.incursio.newster.data.local.Category
+import com.incursio.newster.data.local.RemoteKeyDto
+import com.incursio.newster.data.toDto
 import com.incursio.newsapi.NEWS_START_PAGE
 import com.incursio.newsapi.NewsService
 import retrofit2.HttpException

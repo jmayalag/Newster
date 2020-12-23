@@ -1,8 +1,8 @@
-package com.incursio.newster.news.remote
+package com.incursio.newster.data.remote
 
 import androidx.paging.PagingSource
-import com.incursio.newster.news.data.ArticleDto
-import com.incursio.newster.news.data.toDto
+import com.incursio.newster.data.local.ArticleDto
+import com.incursio.newster.data.toDto
 import com.incursio.newsapi.NEWS_START_PAGE
 import com.incursio.newsapi.NewsService
 import retrofit2.HttpException

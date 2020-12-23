@@ -3,7 +3,8 @@ package com.incursio.newster
 import android.os.Parcel
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.incursio.newster.news.data.Category
+import com.incursio.newster.data.local.Category
+import com.incursio.newster.view.Article
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

@@ -1,4 +1,4 @@
-package com.incursio.newster.articledetail
+package com.incursio.newster.view.detail
 
 import android.content.Intent
 import android.net.Uri
@@ -12,10 +12,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.incursio.newster.Article
 import com.incursio.newster.R
 import com.incursio.newster.databinding.ArticleDetailFragmentBinding
-import com.incursio.newster.news.data.Category
+import com.incursio.newster.data.local.Category
+import com.incursio.newster.view.Article
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import timber.log.Timber

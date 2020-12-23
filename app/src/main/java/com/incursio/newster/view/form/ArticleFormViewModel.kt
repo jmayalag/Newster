@@ -1,14 +1,16 @@
-package com.incursio.newster
+package com.incursio.newster.view.form
 
-import android.net.Uri
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.incursio.newster.news.data.ArticleDao
-import com.incursio.newster.news.data.ArticleDto
-import com.incursio.newster.news.data.Category
+import com.incursio.newster.data.local.ArticleDao
+import com.incursio.newster.data.local.ArticleDto
+import com.incursio.newster.data.local.Category
+import com.incursio.newster.data.toDto
+import com.incursio.newster.data.toView
 import com.incursio.newster.util.SingleLiveEvent
+import com.incursio.newster.view.Article
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*

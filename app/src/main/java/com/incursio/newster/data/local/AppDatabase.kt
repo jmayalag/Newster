@@ -1,9 +1,9 @@
-package com.incursio.newster
+package com.incursio.newster.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.incursio.newster.news.data.*
+import com.incursio.newster.data.local.*
 
 // TODO: Export schema
 @Database(entities = [ArticleDto::class, RemoteKeyDto::class], version = 2, exportSchema = false)
