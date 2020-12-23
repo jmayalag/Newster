@@ -66,9 +66,6 @@ class ArticleFormFragment : Fragment() {
             }
 
             articleCreatedEvent.observe(viewLifecycleOwner) {
-                context?.let { ctx ->
-                    Toast.makeText(ctx, "Article created", Toast.LENGTH_LONG).show()
-                }
                 findNavController().popBackStack()
             }
         }

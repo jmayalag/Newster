@@ -72,7 +72,7 @@ class ArticleFormViewModel @ViewModelInject @Inject constructor(
 
     private suspend fun upsert(title: String, content: String): ArticleDto {
         savedArticle?.toDto()?.let {
-            val updated = it.copy(title = title, content = content)
+            val updated = it.copy(title = title, content = content, urlToImage = imageUri)
             articleDao.update(updated)
             return updated
         }
