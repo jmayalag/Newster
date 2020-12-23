@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -12,20 +13,17 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.hodinkee.hodinnews.databinding.ArticleListFragmentBinding
+import com.hodinkee.hodinnews.databinding.RemoteArticleListFragmentBinding
 import com.hodinkee.hodinnews.news.ArticlesAdapter
 import com.hodinkee.hodinnews.news.ArticlesLoadStateAdapter
 import com.hodinkee.hodinnews.toView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChangedBy
-import kotlinx.coroutines.flow.filter
 
 @ExperimentalPagingApi
 @AndroidEntryPoint
-class ArticleListFragment : Fragment() {
-    private val viewModel: ArticleListViewModel by viewModels()
+class RemoteArticleListFragment : Fragment() {
+    private val viewModel: ArticleListViewModel by activityViewModels()
 
     private lateinit var pagingAdapter: ArticlesAdapter
     private lateinit var recyclerView: RecyclerView
@@ -35,17 +33,12 @@ class ArticleListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = ArticleListFragmentBinding.inflate(inflater, container, false).apply {
-            vm = viewModel
-            lifecycleOwner = this@ArticleListFragment.viewLifecycleOwner
-        }
+        val binding = RemoteArticleListFragmentBinding.inflate(inflater, container, false)
 
         pagingAdapter = ArticlesAdapter(ArticlesAdapter.ArticleComparator) {
             val article = it.toView()
             val directions =
-                ArticleListFragmentDirections.actionArticleListFragmentToArticleDetailFragment(
-                    article
-                )
+                RemoteArticleListFragmentDirections.toArticleDetailFragment(article)
             findNavController().navigate(directions)
         }
         recyclerView = binding.articlesList
@@ -70,7 +63,7 @@ class ArticleListFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.articlesDbFlow.collectLatest { pagingData ->
+            viewModel.remoteArticlesFlow.collectLatest { pagingData ->
                 pagingAdapter.submitData(pagingData)
             }
         }

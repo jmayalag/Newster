@@ -13,4 +13,14 @@ class Converters {
     fun dateToTimestamp(date: Date): Long {
         return date.time
     }
+
+    @TypeConverter
+    fun fromCategory(value: Category): Int {
+        return value.ordinal
+    }
+
+    @TypeConverter
+    fun toCategory(value: Int): Category {
+        return Category.values()[value]
+    }
 }

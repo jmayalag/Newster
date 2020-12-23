@@ -2,11 +2,13 @@ package com.hodinkee.hodinnews
 
 import android.os.Parcelable
 import com.hodinkee.hodinnews.news.data.ArticleDto
+import com.hodinkee.hodinnews.news.data.Category
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
 @Parcelize
 data class Article(
+    val id: String,
     val source: String,
     val author: String,
     val title: String,
@@ -14,10 +16,12 @@ data class Article(
     val description: String?,
     val urlToImage: String?,
     val content: String,
-    val publishedAt: Date
+    val publishedAt: Date,
+    val category: Category
 ) : Parcelable
 
 fun ArticleDto.toView() = Article(
+    id = id,
     source = source,
     author = author,
     title = title,
@@ -25,5 +29,19 @@ fun ArticleDto.toView() = Article(
     description = description,
     urlToImage = urlToImage,
     content = content,
-    publishedAt = publishedAt
+    publishedAt = publishedAt,
+    category = category
+)
+
+fun Article.toDto() = ArticleDto(
+    id = id,
+    source = source,
+    author = author,
+    title = title,
+    url = url,
+    description = description,
+    urlToImage = urlToImage,
+    content = content,
+    publishedAt = publishedAt,
+    category = category
 )

@@ -7,8 +7,8 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.hodinkee.hodinnews.AppDatabase
 import com.hodinkee.hodinnews.news.data.ArticleDto
+import com.hodinkee.hodinnews.news.data.Category
 import com.hodinkee.hodinnews.news.data.RemoteKeyDto
-import com.hodinkee.hodinnews.news.data.RemoteKeyType
 import com.hodinkee.hodinnews.news.data.toDto
 import com.hodinkee.newsapi.NEWS_START_PAGE
 import com.hodinkee.newsapi.NewsService
@@ -32,7 +32,7 @@ class ArticleRemoteMediator(
                 LoadType.REFRESH -> NEWS_START_PAGE
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
-                    val remoteKey = remoteKeyDao.remoteKeyByType(RemoteKeyType.ARTICLE.name)
+                    val remoteKey = remoteKeyDao.remoteKeyByType(Category.REMOTE)
 
                     if (remoteKey?.nextPageKey == null) {
                         return MediatorResult.Success(endOfPaginationReached = true)
@@ -50,11 +50,11 @@ class ArticleRemoteMediator(
 
             db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    remoteKeyDao.deleteByType(RemoteKeyType.ARTICLE.name)
-                    articleDao.clearAll()
+                    remoteKeyDao.deleteByType(Category.REMOTE.name)
+                    articleDao.clearAll(Category.REMOTE)
                 }
 
-                remoteKeyDao.insert(RemoteKeyDto(RemoteKeyType.ARTICLE.name, nextKey))
+                remoteKeyDao.insert(RemoteKeyDto(Category.REMOTE, nextKey))
                 articleDao.insert(*articles.map { it.toDto() }.toTypedArray())
             }
 
