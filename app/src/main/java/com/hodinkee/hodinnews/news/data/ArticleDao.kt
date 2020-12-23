@@ -25,7 +25,7 @@ interface ArticleDao {
     suspend fun update(vararg articles: ArticleDto)
 
     @Delete
-    suspend fun delete(vararg articles: ArticleDto)
+    suspend fun delete(vararg articles: ArticleDto): Int
 
     @Query("DELETE FROM articles WHERE category = :category")
     suspend fun clearAll(category: Category)

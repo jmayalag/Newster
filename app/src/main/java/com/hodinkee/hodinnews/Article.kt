@@ -8,6 +8,7 @@ import java.util.*
 
 @Parcelize
 data class Article(
+    val id: String,
     val source: String,
     val author: String,
     val title: String,
@@ -20,6 +21,20 @@ data class Article(
 ) : Parcelable
 
 fun ArticleDto.toView() = Article(
+    id = id,
+    source = source,
+    author = author,
+    title = title,
+    url = url,
+    description = description,
+    urlToImage = urlToImage,
+    content = content,
+    publishedAt = publishedAt,
+    category = category
+)
+
+fun Article.toDto() = ArticleDto(
+    id = id,
     source = source,
     author = author,
     title = title,
